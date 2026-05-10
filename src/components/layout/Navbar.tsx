@@ -43,11 +43,11 @@ export default function Navbar() {
     {isSignedIn ? (
     <UserButton  />
   ) : (
-    <SignInButton mode="modal">
-      <button className="flex gap-4 items-center px-4 py-2 bg-black text-white rounded-md hover:bg-white transition-all duration-300 border hover:border-black hover:text-black">
-        Sign in with google <User />
-      </button>
-    </SignInButton>
+<Link href="/sign-in">
+  <button className="flex gap-4 items-center px-4 py-2 bg-black text-white rounded-md hover:bg-white hover:text-black border hover:border-black transition-all duration-300">
+    Sign in with Google <User />
+  </button>
+</Link>
   )}
 
         <ul className="flex items-center gap-4">
