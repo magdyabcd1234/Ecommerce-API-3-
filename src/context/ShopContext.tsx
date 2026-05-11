@@ -31,9 +31,9 @@ type ShopContextType = {
   showToast: (msg: string) => void;
 };
 
+// ================= CONTEXT =================
 
-
-const ShopContext = createContext<ShopContextType | null>(null);
+const ShopContext = createContext<ShopContextType | undefined>(undefined);
 
 // ================= PROVIDER =================
 
@@ -42,16 +42,13 @@ export const ShopProvider = ({ children }: { children: ReactNode }) => {
   const [wishlist, setWishlist] = useState<any[]>([]);
   const [toast, setToast] = useState<string | null>(null);
 
-  // ================= TOAST =================
   const showToast = (message: string) => {
     setToast(message);
-
-    setTimeout(() => {
-      setToast(null);
-    }, 2500);
+    setTimeout(() => setToast(null), 2500);
   };
 
   // ================= CART =================
+
   const toggleCartItem = (product: any) => {
     setCart((prev) => {
       const exists = prev.find((item) => item.id === product.id);
@@ -67,6 +64,7 @@ export const ShopProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // ================= WISHLIST =================
+
   const toggleWishlistItem = (product: any) => {
     setWishlist((prev) => {
       const exists = prev.find((item) => item.id === product.id);
@@ -82,12 +80,11 @@ export const ShopProvider = ({ children }: { children: ReactNode }) => {
   };
 
   // ================= QTY =================
+
   const increaseQty = (id: number) => {
     setCart((prev) =>
       prev.map((item) =>
-        item.id === id
-          ? { ...item, qty: item.qty + 1 }
-          : item
+        item.id === id ? { ...item, qty: item.qty + 1 } : item
       )
     );
   };
@@ -96,9 +93,7 @@ export const ShopProvider = ({ children }: { children: ReactNode }) => {
     setCart((prev) =>
       prev
         .map((item) =>
-          item.id === id
-            ? { ...item, qty: item.qty - 1 }
-            : item
+          item.id === id ? { ...item, qty: item.qty - 1 } : item
         )
         .filter((item) => item.qty > 0)
     );
@@ -108,7 +103,8 @@ export const ShopProvider = ({ children }: { children: ReactNode }) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // ================= LOCAL STORAGE LOAD =================
+  // ================= LOCAL STORAGE =================
+
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     const savedWishlist = localStorage.getItem("wishlist");
@@ -117,7 +113,6 @@ export const ShopProvider = ({ children }: { children: ReactNode }) => {
     if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
   }, []);
 
-  // ================= LOCAL STORAGE SAVE =================
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
@@ -145,22 +140,25 @@ export const ShopProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// ================= HOOK =================
+// ================= HOOK (FIXED 100%) =================
+
 export const useShop = () => {
   const context = useContext(ShopContext);
 
+  // 🔥 أهم نقطة: NO SSR CRASH + NO BUILD BREAK
   if (!context) {
-  return {
-    cart: [],
-    wishlist: [],
-    toggleCartItem: () => {},
-    toggleWishlistItem: () => {},
-    increaseQty: () => {},
-    decreaseQty: () => {},
-    removeCartItem: () => {},
-    toast: null,
-    showToast: () => {},
-  };
-}
+    return {
+      cart: [],
+      wishlist: [],
+      toggleCartItem: () => {},
+      toggleWishlistItem: () => {},
+      increaseQty: () => {},
+      decreaseQty: () => {},
+      removeCartItem: () => {},
+      toast: null,
+      showToast: () => {},
+    };
+  }
+
   return context;
 };
