@@ -3,15 +3,15 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ShoppingCart, Heart, User } from "lucide-react";
-import modalImg from "@/public/images/a2.jpg";
 import Image from "next/image";
 import { useShop } from "@/context/ShopContext";
-import { SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
+import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const { cart, wishlist } = useShop();
+  const { isSignedIn } = useUser();
 
 
   return (
@@ -41,17 +41,17 @@ export default function Navbar() {
         
 
 
-  <div className="bg-black p-4 py-3 rounded-md text-white hover:bg-white border hover:border-black hover:text-black transition-all duration-300">
-     <SignOutButton>
-    <SignInButton mode="modal">
-      Sign in with clerk
-    </SignInButton>
-  </SignOutButton>
+  <div className="flex gap-3 items-center">
 
-  <SignInButton>
-    <UserButton />
+  {!isSignedIn ? (
+  <SignInButton mode="modal">
+    <button>Login</button>
   </SignInButton>
-            </div>
+) : (
+  <UserButton />
+)}
+
+</div>
 
         <ul className="flex items-center gap-4">
             <Link href="/wishlist" className="relative"><Heart className="w-6 h-6 cursor-pointer hover:text-red-500 transition-all duration-300" /><span className="absolute top-0 left-4 w-4 h-4 bg-orange-700 rounded-full flex items-center justify-center text-white">{wishlist.length}</span></Link>
