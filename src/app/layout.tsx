@@ -3,10 +3,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
-import { ShopProvider } from "@/context/ShopContext";
 import Toast from "@/components/ui/Toast";
 import Footer from "@/components/layout/Footer";
-import { ClerkProvider } from "@clerk/nextjs";
+import { ShopProvider } from "@/context/ShopContext";
+import Providers from "@/providers/ClerkProvider";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,16 +39,18 @@ export default function RootLayout({
       lang="en"
       className={inter.variable}
     >
-      <ClerkProvider>
+      
       <body className="min-h-full flex flex-col">
-        <ShopProvider>
+          <Providers>
+          <ShopProvider>
            <Navbar />
         {children}
-         <Toast />
-        </ShopProvider>
+         <Toast />     
+         </ShopProvider>
+         </Providers>
         <Footer />
         </body>
-        </ClerkProvider>
+       
     </html>
   );
 }
