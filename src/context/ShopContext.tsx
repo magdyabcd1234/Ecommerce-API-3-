@@ -150,8 +150,17 @@ export const useShop = () => {
   const context = useContext(ShopContext);
 
   if (!context) {
-    throw new Error("useShop must be used within ShopProvider");
-  }
-
+  return {
+    cart: [],
+    wishlist: [],
+    toggleCartItem: () => {},
+    toggleWishlistItem: () => {},
+    increaseQty: () => {},
+    decreaseQty: () => {},
+    removeCartItem: () => {},
+    toast: null,
+    showToast: () => {},
+  };
+}
   return context;
 };
