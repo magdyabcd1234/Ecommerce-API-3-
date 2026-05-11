@@ -1,12 +1,13 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Toast from "@/components/ui/Toast";
 import Footer from "@/components/layout/Footer";
 import { ShopProvider } from "@/context/ShopContext";
 import Providers from "@/providers/ClerkProvider";
+
 
 
 const geistSans = Geist({

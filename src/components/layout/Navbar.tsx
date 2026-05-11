@@ -6,8 +6,7 @@ import { ShoppingCart, Heart, User } from "lucide-react";
 import modalImg from "@/public/images/a2.jpg";
 import Image from "next/image";
 import { useShop } from "@/context/ShopContext";
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
-
+import { SignInButton, SignOutButton, UserButton } from "@clerk/nextjs";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
@@ -42,17 +41,16 @@ export default function Navbar() {
         
 
 
-  <div className='md:block'>
-            <SignedOut>
-              <SignInButton mode="modal">
-              <button className="bg-red-500 rounded-md text-white px-3 py-1 cursor-pointer">
-               Sign in
-               </button>
-            </SignInButton>
-              </SignedOut>
-             <SignedIn>
-             <UserButton />
-            </SignedIn>
+  <div className="bg-black p-4 py-3 rounded-md text-white hover:bg-white border hover:border-black hover:text-black transition-all duration-300">
+     <SignOutButton>
+    <SignInButton mode="modal">
+      Sign in with clerk
+    </SignInButton>
+  </SignOutButton>
+
+  <SignInButton>
+    <UserButton />
+  </SignInButton>
             </div>
 
         <ul className="flex items-center gap-4">
