@@ -33,7 +33,7 @@ type ShopContextType = {
 
 // ================= CONTEXT =================
 
-const ShopContext = createContext<ShopContextType | undefined>(undefined);
+const ShopContext = createContext(null);
 
 // ================= PROVIDER =================
 
