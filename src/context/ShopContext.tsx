@@ -31,9 +31,9 @@ type ShopContextType = {
   showToast: (msg: string) => void;
 };
 
-// ================= CONTEXT =================
 
-const ShopContext = createContext(null);
+
+const ShopContext = createContext<ShopContextType | null>(null);
 
 // ================= PROVIDER =================
 

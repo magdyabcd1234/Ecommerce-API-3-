@@ -9,9 +9,7 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
 
-  experimental: {
-    serverComponentsExternalPackages: ["@clerk/nextjs"],
-  },
+  serverExternalPackages: ["@clerk/nextjs"],
 };
 
 export default nextConfig;
